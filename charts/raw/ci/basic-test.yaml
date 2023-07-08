@@ -1,0 +1,19 @@
+resources:
+  - apiVersion: scheduling.k8s.io/v1beta1
+    kind: PriorityClass
+    metadata:
+      name: common-critical
+    value: 100000000
+    globalDefault: false
+    description: "This priority class should only be used for critical priority common pods."
+
+mysecret: abc123
+
+templates:
+- |
+  apiVersion: v1
+  kind: Secret
+  metadata:
+    name: common-secret
+  stringData:
+    mykey: {{ .Values.mysecret }}
